@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base -->
+    <color name="bg_dark">#0A0C0F</color>
+    <color name="bg_card">#111419</color>
+    <color name="bg_card2">#161B22</color>
+    <color name="border">#1E2530</color>
+    <color name="border_strong">#2D3748</color>
+
+    <!-- Text -->
+    <color name="white">#FFFFFF</color>
+    <color name="text_primary">#C9D1D9</color>
+    <color name="muted">#6E7681</color>
+
+    <!-- Brand accents -->
+    <color name="accent_cyan">#00E5FF</color>
+    <color name="accent_purple">#A78BFA</color>
+    <color name="accent_green">#00E676</color>
+    <color name="accent_amber">#FFD740</color>
+    <color name="accent_red">#FF1744</color>
+    <color name="accent_orange">#FF6E40</color>
+    <color name="accent_pink">#F06292</color>
+
+    <!-- Badge backgrounds -->
+    <color name="badge_game_bg">#1A2A0A</color>
+    <color name="badge_sys_bg">#1A1A2A</color>
+    <color name="badge_high_bg">#0A1A2A</color>
+
+    <!-- Chart -->
+    <color name="chart_grid">#1E2530</color>
+</resources>

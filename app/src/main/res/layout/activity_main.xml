@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bg_dark">
+
+    <!-- Top bar -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="14dp"
+        android:background="@color/bg_card">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:gap="8dp">
+
+            <TextView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:text="👻"
+                android:textSize="20sp"
+                android:gravity="center"
+                android:background="@drawable/bg_brand_icon"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="GHOSTTRACE"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:fontFamily="monospace"
+                    android:letterSpacing="0.1"/>
+
+                <TextView
+                    android:id="@+id/tvScanStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Scanning..."
+                    android:textSize="10sp"
+                    android:textColor="@color/muted"
+                    android:fontFamily="monospace"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@princeyy"
+            android:textSize="10sp"
+            android:textColor="@color/accent_purple"
+            android:background="@drawable/bg_dev_tag"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="3dp"/>
+    </LinearLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Stats grid -->
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnCount="2"
+                android:padding="12dp"
+                android:gap="8dp">
+
+                <!-- Ghost count -->
+                <include layout="@layout/widget_stat_card"
+                    android:id="@+id/statGhosts"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"/>
+
+                <!-- Total FG -->
+                <include layout="@layout/widget_stat_card"
+                    android:id="@+id/statFg"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"/>
+
+                <!-- Top sessions -->
+                <include layout="@layout/widget_stat_card"
+                    android:id="@+id/statSessions"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"/>
+
+                <!-- Log window -->
+                <include layout="@layout/widget_stat_card"
+                    android:id="@+id/statWindow"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"/>
+            </GridLayout>
+
+            <!-- Stat card data (programmatic wiring) -->
+            <!-- We wire the actual TextViews directly in MainActivity via IDs in widget_stat_card -->
+
+            <!-- Hidden TextViews for stat values (accessed by MainActivity) -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="gone">
+                <TextView android:id="@+id/tvGhostCount" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                <TextView android:id="@+id/tvTotalFg" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                <TextView android:id="@+id/tvTopSessions" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                <TextView android:id="@+id/tvTopPkg" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                <TextView android:id="@+id/tvLogWindow" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <!-- Bar Chart -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingHorizontal="12dp"
+                android:paddingBottom="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="▸  SESSION ACTIVITY — TOP APPS"
+                    android:textSize="10sp"
+                    android:textColor="@color/muted"
+                    android:fontFamily="monospace"
+                    android:letterSpacing="0.05"
+                    android:layout_marginBottom="6dp"/>
+
+                <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/barChart"
+                    android:layout_width="match_parent"
+                    android:layout_height="140dp"
+                    android:background="@color/bg_card"
+                    android:padding="8dp"/>
+            </LinearLayout>
+
+            <!-- Filter chips -->
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none"
+                android:paddingHorizontal="12dp"
+                android:paddingBottom="8dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gap="6dp">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipAll"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="All"
+                        android:checked="true"
+                        style="@style/GhostChip"/>
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipUsed"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Used &gt; 0s"
+                        style="@style/GhostChip"/>
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipGames"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="🎮 Games"
+                        style="@style/GhostChip"/>
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipSort"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sort: Last active"
+                        style="@style/GhostChip"/>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="20dp"
+                        android:background="@color/border"
+                        android:layout_marginHorizontal="4dp"/>
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipGhosts"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="👻 Ghosts"
+                        style="@style/GhostChip"/>
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipBg"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="⚙ Background"
+                        style="@style/GhostChip"/>
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipProc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="🔍 Proc"
+                        style="@style/GhostChip"/>
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <!-- Action buttons -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingHorizontal="12dp"
+                android:paddingBottom="10dp"
+                android:gap="8dp">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnCopy"
+                    android:layout_width="0dp"
+                    android:layout_height="36dp"
+                    android:layout_weight="1"
+                    android:text="Copy"
+                    android:textSize="11sp"
+                    android:fontFamily="monospace"
+                    style="@style/GhostOutlineButton"
+                    app:icon="@drawable/ic_copy"
+                    app:iconSize="14dp"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnSave"
+                    android:layout_width="0dp"
+                    android:layout_height="36dp"
+                    android:layout_weight="1"
+                    android:text="Save .TXT"
+                    android:textSize="11sp"
+                    android:fontFamily="monospace"
+                    style="@style/GhostOutlineButton"
+                    app:icon="@drawable/ic_download"
+                    app:iconSize="14dp"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnShare"
+                    android:layout_width="0dp"
+                    android:layout_height="36dp"
+                    android:layout_weight="1"
+                    android:text="Share"
+                    android:textSize="11sp"
+                    android:fontFamily="monospace"
+                    style="@style/GhostOutlineButton"
+                    app:icon="@drawable/ic_share"
+                    app:iconSize="14dp"/>
+            </LinearLayout>
+
+            <!-- List header -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingHorizontal="14dp"
+                android:paddingBottom="6dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/tvListCount"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="0 ghosts"
+                    android:textSize="10sp"
+                    android:textColor="@color/muted"
+                    android:fontFamily="monospace"
+                    android:letterSpacing="0.05"
+                    android:textAllCaps="true"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="tap to expand"
+                    android:textSize="10sp"
+                    android:textColor="@color/muted"
+                    android:fontFamily="monospace"/>
+            </LinearLayout>
+
+            <!-- RecyclerView -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvApps"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="12dp"
+                android:nestedScrollingEnabled="false"
+                tools:listitem="@layout/item_app"/>
+
+            <!-- Footer -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="⚠  Android keeps only a few days of UsageEvents data"
+                android:textSize="10sp"
+                android:textColor="@color/muted"
+                android:fontFamily="monospace"
+                android:padding="14dp"
+                android:gravity="center"/>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@color/bg_dark"
+    android:padding="40dp">
+
+    <!-- Ghost icon -->
+    <TextView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:text="👻"
+        android:textSize="48sp"
+        android:gravity="center"
+        android:background="@drawable/bg_splash_icon"
+        android:layout_marginBottom="24dp"/>
+
+    <!-- Brand name -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="GHOSTTRACE"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:letterSpacing="0.15"
+        android:fontFamily="monospace"
+        android:layout_marginBottom="6dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="deleted app forensics"
+        android:textSize="13sp"
+        android:textColor="@color/muted"
+        android:fontFamily="monospace"
+        android:layout_marginBottom="4dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@princeyy"
+        android:textSize="12sp"
+        android:textColor="@color/accent_purple"
+        android:background="@drawable/bg_dev_tag"
+        android:paddingHorizontal="12dp"
+        android:paddingVertical="4dp"
+        android:layout_marginBottom="48dp"/>
+
+    <!-- Status -->
+    <TextView
+        android:id="@+id/tvStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Initializing..."
+        android:textSize="14sp"
+        android:textColor="@color/accent_cyan"
+        android:fontFamily="monospace"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:id="@+id/tvSub"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Checking permissions"
+        android:textSize="12sp"
+        android:textColor="@color/muted"
+        android:fontFamily="monospace"
+        android:layout_marginBottom="40dp"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnAction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Open GhostTrace"
+        android:backgroundTint="@color/accent_cyan"
+        android:textColor="@color/bg_dark"
+        android:textStyle="bold"
+        android:fontFamily="monospace"
+        android:letterSpacing="0.05"
+        style="@style/Widget.MaterialComponents.Button"/>
+
+</LinearLayout>

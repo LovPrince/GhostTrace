@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/bg_app_card"
+    android:padding="12dp"
+    android:layout_marginBottom="8dp">
+
+    <!-- Row 1: label + badges -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="2dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvAppLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:fontFamily="monospace"/>
+
+            <TextView
+                android:id="@+id/tvPkgName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10sp"
+                android:textColor="@color/accent_cyan"
+                android:fontFamily="monospace"
+                android:ellipsize="end"
+                android:maxLines="1"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/badgeGame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="GAME"
+            android:textSize="9sp"
+            android:textColor="@color/accent_green"
+            android:background="@drawable/bg_badge_game"
+            android:paddingHorizontal="6dp"
+            android:paddingVertical="2dp"
+            android:fontFamily="monospace"
+            android:layout_marginEnd="4dp"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/badgeSys"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SYS"
+            android:textSize="9sp"
+            android:textColor="@color/accent_purple"
+            android:background="@drawable/bg_badge_sys"
+            android:paddingHorizontal="6dp"
+            android:paddingVertical="2dp"
+            android:fontFamily="monospace"
+            android:layout_marginEnd="4dp"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/badgeSource"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="GHOST"
+            android:textSize="9sp"
+            android:textColor="@color/accent_cyan"
+            android:background="@drawable/bg_badge_source"
+            android:paddingHorizontal="6dp"
+            android:paddingVertical="2dp"
+            android:fontFamily="monospace"
+            android:layout_marginEnd="4dp"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/ivChevron"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:src="@drawable/ic_chevron_down"
+            android:tint="@color/muted"/>
+    </LinearLayout>
+
+    <!-- Running now indicator -->
+    <TextView
+        android:id="@+id/tvRunningNow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="● RUNNING"
+        android:textSize="9sp"
+        android:textColor="#00E676"
+        android:fontFamily="monospace"
+        android:layout_marginTop="2dp"
+        android:visibility="gone"/>
+
+    <!-- Row 2: fg time + sessions -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="6dp"
+        android:gap="16dp">
+
+        <TextView
+            android:id="@+id/tvFgTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="11sp"
+            android:textColor="@color/muted"
+            android:fontFamily="monospace"/>
+
+        <TextView
+            android:id="@+id/tvSessions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="11sp"
+            android:textColor="@color/muted"
+            android:fontFamily="monospace"/>
+    </LinearLayout>
+
+    <!-- FG bar -->
+    <FrameLayout
+        android:id="@+id/fgBarBg"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@color/border"
+        android:layout_marginBottom="0dp">
+
+        <View
+            android:id="@+id/fgBarFill"
+            android:layout_width="0dp"
+            android:layout_height="3dp"
+            android:background="@drawable/bg_fg_bar"/>
+    </FrameLayout>
+
+    <!-- Expandable detail -->
+    <LinearLayout
+        android:id="@+id/detailSection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:layout_marginTop="10dp"
+        android:paddingTop="10dp">
+
+        <!-- Divider -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/border"
+            android:layout_marginBottom="8dp"/>
+
+        <!-- Detail rows -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="3dp">
+            <TextView android:layout_width="90dp" android:layout_height="wrap_content"
+                android:text="first seen" android:textSize="10sp" android:textColor="@color/muted" android:fontFamily="monospace"/>
+            <TextView android:id="@+id/tvDetailFirst" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:textSize="10sp" android:textColor="@color/text_primary" android:fontFamily="monospace"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="3dp">
+            <TextView android:layout_width="90dp" android:layout_height="wrap_content"
+                android:text="last active" android:textSize="10sp" android:textColor="@color/muted" android:fontFamily="monospace"/>
+            <TextView android:id="@+id/tvDetailLast" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:textSize="10sp" android:textColor="@color/text_primary" android:fontFamily="monospace"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="3dp">
+            <TextView android:layout_width="90dp" android:layout_height="wrap_content"
+                android:text="fg time" android:textSize="10sp" android:textColor="@color/muted" android:fontFamily="monospace"/>
+            <TextView android:id="@+id/tvDetailFg" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:textSize="10sp" android:textColor="@color/accent_cyan" android:fontFamily="monospace"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="8dp">
+            <TextView android:layout_width="90dp" android:layout_height="wrap_content"
+                android:text="sessions" android:textSize="10sp" android:textColor="@color/muted" android:fontFamily="monospace"/>
+            <TextView android:id="@+id/tvDetailSessions" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:textSize="10sp" android:textColor="@color/text_primary" android:fontFamily="monospace"/>
+        </LinearLayout>
+
+        <!-- Timeline -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DAILY SESSIONS"
+            android:textSize="9sp"
+            android:textColor="@color/muted"
+            android:fontFamily="monospace"
+            android:letterSpacing="0.1"
+            android:layout_marginBottom="6dp"/>
+
+        <LinearLayout
+            android:id="@+id/timelineContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gap="4dp"/>
+
+    </LinearLayout>
+
+</LinearLayout>

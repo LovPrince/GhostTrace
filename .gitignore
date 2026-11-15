@@ -1,0 +1,30 @@
+# Gradle
+.gradle/
+build/
+**/build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# Android Studio
+.idea/
+*.iml
+*.iws
+*.ipr
+local.properties
+captures/
+.externalNativeBuild/
+.cxx/
+
+# Keystore (NEVER commit these)
+*.jks
+*.keystore
+keystore.properties
+release.properties
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Output APKs (CI handles these)
+*.apk
+*.aab
+*.aar
