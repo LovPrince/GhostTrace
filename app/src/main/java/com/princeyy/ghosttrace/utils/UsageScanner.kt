@@ -32,10 +32,29 @@ object UsageScanner {
         val uniqueProcGhosts = procGhosts.filter { it.packageName !in ghostPkgs && it.packageName !in bgPkgs }
         val uniqueBg         = background.filter { it.packageName !in ghostPkgs }
 
+        // Extra no-root traces
+        val extraPkgs = ExtraScanner.scan(context)
+        val allKnown = ghostPkgs + bgPkgs + uniqueProcGhosts.map { it.packageName }.toSet()
+        val extraRecords = extraPkgs
+            .filter { it !in allKnown }
+            .map { pkg ->
+                AppRecord(
+                    packageName  = pkg,
+                    appLabel     = pkg.split(".").lastOrNull()?.replaceFirstChar { it.uppercase() } ?: pkg,
+                    firstSeen    = 0L,
+                    lastSeen     = 0L,
+                    fgMillis     = 0L,
+                    sessions     = 0,
+                    isGame       = isLikelyGame(pkg),
+                    isSystem     = isLikelySystem(pkg),
+                    source       = AppSource.PROC_GHOST
+                )
+            }
+
         return ScanResult(
             ghosts     = ghosts,
             background = uniqueBg,
-            procGhosts = uniqueProcGhosts
+            procGhosts = uniqueProcGhosts + extraRecords
         )
     }
 
