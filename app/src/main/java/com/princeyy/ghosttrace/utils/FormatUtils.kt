@@ -31,7 +31,7 @@ object FormatUtils {
         sb.appendLine("GHOSTTRACE — Deleted App Forensics Report")
         sb.appendLine("by @princeyy")
         sb.appendLine("Generated : ${formatDate(System.currentTimeMillis())}")
-        sb.appendLine("Log window: last 7 days")
+        sb.appendLine("Log window: last 30 days")
         sb.appendLine("Categories: ${records.filter{it.source==AppSource.GHOST}.size} Ghosts  |  ${records.filter{it.source==AppSource.BACKGROUND}.size} BG Running  |  ${records.filter{it.source==AppSource.PROC_GHOST}.size} Proc")
         sb.appendLine("=".repeat(50))
         sb.appendLine()

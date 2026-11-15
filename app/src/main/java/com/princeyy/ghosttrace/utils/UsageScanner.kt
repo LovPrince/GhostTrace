@@ -18,7 +18,7 @@ object UsageScanner {
     // -------------------------------------------------------------------------
     // Public entry point — runs all three detection passes and merges results
     // -------------------------------------------------------------------------
-    fun scan(context: Context, windowDays: Int = 7): ScanResult {
+    fun scan(context: Context, windowDays: Int = 30): ScanResult {
         val pm = context.packageManager
 
         val ghosts      = scanUsageGhosts(context, windowDays, pm)
@@ -50,7 +50,7 @@ object UsageScanner {
         val usm = context.getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager
 
         val endTime   = System.currentTimeMillis()
-        val startTime = endTime - windowDays.toLong() * 24 * 60 * 60 * 1000
+        val startTime = endTime - windowDays.toLong() * 24L * 60 * 60 * 1000
 
         val firstSeen     = mutableMapOf<String, Long>()
         val lastSeen      = mutableMapOf<String, Long>()
