@@ -85,7 +85,7 @@ jobs:
 
       # Build release APK (unsigned — no keystore needed for sideloading)
       - name: Build Release APK
-        run: ./gradlew assembleRelease --no-daemon
+        run: ./gradlew assembleDebug --no-daemon
 
       # Get short commit SHA for tag
       - name: Get short SHA
@@ -114,7 +114,7 @@ jobs:
             ### Install
             Download `GhostTrace-release.apk` → install on device
             > Enable "Install unknown apps" for your file manager first
-          files: app/build/outputs/apk/release/app-release-unsigned.apk
+          files: app/build/outputs/apk/debug/app-debug.apk
           draft: false
           prerelease: false
         env:
