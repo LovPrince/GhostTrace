@@ -18,6 +18,7 @@ import com.princeyy.ghosttrace.databinding.ActivityMainBinding
 import com.princeyy.ghosttrace.model.AppRecord
 import com.princeyy.ghosttrace.model.AppSource
 import com.princeyy.ghosttrace.utils.FormatUtils
+import com.princeyy.ghosttrace.utils.UninstalledAppTracker
 import com.princeyy.ghosttrace.utils.ScanResult
 import com.princeyy.ghosttrace.utils.UsageScanner
 import java.io.File
