@@ -96,6 +96,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupActionButtons() {
+        binding.btnCopy.setOnLongClickListener {
+            Thread {
+                val dump = UninstalledAppTracker.dumpRawEvents(this)
+                val file = java.io.File(getExternalFilesDir(null), "ghosttrace_debug.txt")
+                file.writeText(dump)
+                runOnUiThread {
+                    Toast.makeText(this, "Debug saved: ${file.absolutePath}",
+                        Toast.LENGTH_LONG).show()
+                }
+            }.start()
+            true
+        }
         binding.btnCopy.setOnClickListener {
             val txt = FormatUtils.exportTxt(getFilteredList())
             val cm = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
@@ -109,20 +121,6 @@ class MainActivity : AppCompatActivity() {
             val file = File(getExternalFilesDir(null), fname)
             file.writeText(txt)
             Toast.makeText(this, "Saved: $fname", Toast.LENGTH_SHORT).show()
-        }
-        binding.btnCopy.setOnLongClickListener {
-            Thread {
-                val dump = com.princeyy.ghosttrace.utils.UninstalledAppTracker
-                    .dumpRawEvents(this)
-                val file = java.io.File(getExternalFilesDir(null), "ghosttrace_debug.txt")
-                file.writeText(dump)
-                runOnUiThread {
-                    android.widget.Toast.makeText(this,
-                        "Debug dumped to ${file.absolutePath}", 
-                        android.widget.Toast.LENGTH_LONG).show()
-                }
-            }.start()
-            true
         }
         binding.btnShare.setOnClickListener {
             val txt = FormatUtils.exportTxt(getFilteredList())
