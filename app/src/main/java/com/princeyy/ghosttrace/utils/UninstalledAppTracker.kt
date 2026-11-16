@@ -68,11 +68,33 @@ object UninstalledAppTracker {
             }
         }
 
-        val installedPkgs = pm.getInstalledApplications(PackageManager.GET_META_DATA)
-            .map { it.packageName }.toSet()
+        // Use both methods and merge — OPPO sometimes misses packages with one method
+        val installedPkgs = mutableSetOf<String>()
+
+        // Method 1: getInstalledApplications
+        try {
+            pm.getInstalledApplications(PackageManager.GET_META_DATA)
+                .forEach { installedPkgs.add(it.packageName) }
+        } catch (_: Exception) {}
+
+        // Method 2: getInstalledPackages
+        try {
+            pm.getInstalledPackages(0)
+                .forEach { installedPkgs.add(it.packageName) }
+        } catch (_: Exception) {}
+
+        // Method 3: queryIntentActivities for launchable apps
+        try {
+            val intent = android.content.Intent(android.content.Intent.ACTION_MAIN)
+            intent.addCategory(android.content.Intent.CATEGORY_LAUNCHER)
+            pm.queryIntentActivities(intent, 0)
+                .forEach { installedPkgs.add(it.activityInfo.packageName) }
+        } catch (_: Exception) {}
 
         return firstSeen.keys
             .filter { it !in installedPkgs }
+            .filter { it != context.packageName } // skip self
+            .filter { !it.startsWith("android") } // skip bare android process
             .map { pkg ->
                 AppRecord(
                     packageName   = pkg,
