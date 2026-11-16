@@ -110,6 +110,20 @@ class MainActivity : AppCompatActivity() {
             file.writeText(txt)
             Toast.makeText(this, "Saved: $fname", Toast.LENGTH_SHORT).show()
         }
+        binding.btnCopy.setOnLongClickListener {
+            Thread {
+                val dump = com.princeyy.ghosttrace.utils.UninstalledAppTracker
+                    .dumpRawEvents(this)
+                val file = java.io.File(getExternalFilesDir(null), "ghosttrace_debug.txt")
+                file.writeText(dump)
+                runOnUiThread {
+                    android.widget.Toast.makeText(this,
+                        "Debug dumped to ${file.absolutePath}", 
+                        android.widget.Toast.LENGTH_LONG).show()
+                }
+            }.start()
+            true
+        }
         binding.btnShare.setOnClickListener {
             val txt = FormatUtils.exportTxt(getFilteredList())
             val sdf = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault())

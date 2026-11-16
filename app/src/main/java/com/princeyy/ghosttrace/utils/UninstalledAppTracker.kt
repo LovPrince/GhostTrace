@@ -124,3 +124,26 @@ object UninstalledAppTracker {
         return prefixes.any { pkg.startsWith(it) }
     }
 }
+
+    // DEBUG — call this to see exactly what event types Android logged
+    fun dumpRawEvents(context: Context, windowDays: Int = 10): String {
+        val usm = context.getSystemService(Context.USAGE_STATS_SERVICE)
+                as UsageStatsManager
+        val endTime   = System.currentTimeMillis()
+        val startTime = endTime - windowDays.toLong() * 24L * 60L * 60L * 1000L
+
+        val events = usm.queryEvents(startTime, endTime)
+        val event  = UsageEvents.Event()
+        val sb     = StringBuilder()
+        val seen   = mutableSetOf<Int>()
+
+        while (events.hasNextEvent()) {
+            events.getNextEvent(event)
+            seen.add(event.eventType)
+            sb.appendLine("pkg=${event.packageName} type=${event.eventType}")
+        }
+
+        sb.appendLine("\n--- EVENT TYPES SEEN: $seen ---")
+        sb.appendLine("1=MOVE_TO_FG, 2=MOVE_TO_BG, 19=ACTIVITY_RESUMED, 23=ACTIVITY_PAUSED")
+        return sb.toString()
+    }
