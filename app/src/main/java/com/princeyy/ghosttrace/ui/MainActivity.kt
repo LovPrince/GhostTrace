@@ -100,7 +100,7 @@ class MainActivity : AppCompatActivity() {
         binding.btnCopy.setOnLongClickListener {
             Thread {
                 val dump = UninstalledAppTracker.dumpRawEvents(this)
-                val file = java.io.File(getExternalFilesDir(null), "ghosttrace_debug.txt")
+                val file = java.io.File(android.os.Environment.getExternalStoragePublicDirectory(android.os.Environment.DIRECTORY_DOWNLOADS), "ghosttrace_debug.txt")
                 file.writeText(dump)
                 runOnUiThread {
                     Toast.makeText(this, "Debug saved: ${file.absolutePath}",
